@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{common/layout}">
 <head>
     <link href="webjars/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
     <meta charset="UTF-8">
     <title>Welcome Page</title>
 </head>
 <body>
-<div class="container">
-    <h2>Welcome</h2>
-    <div>
-        <span th:text="${name}"></span>
+<div layout:fragment="content">
+    <div class="container">
+        <h2>Welcome</h2>
+        <div>
+            <span th:text="${name}"></span>
 
-        <a href="/list-todo"> Manage</a> your todos
+            <a href="/list-todo"> Manage</a> your todos
+        </div>
     </div>
 </div>
 <script src="webjars/bootstrap/5.1.3/js/bootstrap.min.js"></script>
