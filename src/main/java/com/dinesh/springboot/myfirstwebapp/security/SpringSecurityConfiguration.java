@@ -19,7 +19,6 @@ public class SpringSecurityConfiguration {
         Function<String, String> passwordEncoder = input -> passwordEncoder().encode(input);
         UserDetails userDetails = User.builder()
                 .passwordEncoder(passwordEncoder)
-                .username("admin")
                 .password("admin")
                 .username("dinesh")
                 .roles("admin","user")
@@ -27,9 +26,8 @@ public class SpringSecurityConfiguration {
 
         return new InMemoryUserDetailsManager(userDetails);
     }
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();}
 }
