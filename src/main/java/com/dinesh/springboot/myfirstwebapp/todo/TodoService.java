@@ -1,8 +1,6 @@
 package com.dinesh.springboot.myfirstwebapp.todo;
 
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,13 +13,14 @@ public class TodoService {
     private static int count = 0;
 
     static{
-        todos.add(new Todo(++count, "Dinesh", "complete spring", LocalDate.now(), false));
-        todos.add(new Todo(++count, "Dinesh", "complete aws", LocalDate.now().plusDays(4), false));
-        todos.add(new Todo(++count, "Dinesh", "complete spring", LocalDate.now().plusMonths(1), false));
+        todos.add(new Todo(++count, "dinesh", "complete spring", LocalDate.now(), false));
+        todos.add(new Todo(++count, "dinesh", "complete aws", LocalDate.now().plusDays(4), false));
+        todos.add(new Todo(++count, "dinesh", "complete spring", LocalDate.now().plusMonths(1), false));
     }
 
-    public List<Todo> findByUsername() {
-        return todos;
+    public List<Todo> findByUsername(String userName) {
+        Predicate<Todo> predicate = todo -> todo.getUserName().equalsIgnoreCase(userName);
+        return todos.stream().filter(predicate).toList();
     }
 
     public void addTodo(Todo newTodo) {
