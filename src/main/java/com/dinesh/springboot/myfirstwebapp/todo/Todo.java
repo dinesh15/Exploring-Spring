@@ -1,5 +1,8 @@
 package com.dinesh.springboot.myfirstwebapp.todo;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Size;
 import org.springframework.context.annotation.Scope;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -7,10 +10,14 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
+@Entity
 public class Todo {
 
 
     private String userName;
+
+    @Id
+    @GeneratedValue
     private int id;
 
 
