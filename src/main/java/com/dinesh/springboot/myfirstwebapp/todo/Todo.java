@@ -12,21 +12,6 @@ import java.time.LocalDate;
 
 @Entity
 public class Todo {
-
-
-    private String userName;
-
-    @Id
-    @GeneratedValue
-    private int id;
-
-
-    @Size(min = 10, message = "size should be at least 10 characters")
-    private String description;
-//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)//is this how you can specify the format
-    private LocalDate targetDate;
-    private boolean done;
-
     public Todo() {
     }
 
@@ -37,6 +22,19 @@ public class Todo {
         this.targetDate = targetDate;
         this.done = done;
     }
+
+    private String userName;
+
+    @Id
+    @GeneratedValue
+    private int id;
+
+    @Size(min = 10, message = "size should be at least 10 characters")
+    private String description;
+//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)//is this how you can specify the format
+    private LocalDate targetDate;
+    private boolean done;
+
 
     public String getUserName() {
         return userName;
