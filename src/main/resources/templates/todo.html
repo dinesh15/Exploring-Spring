@@ -10,12 +10,14 @@
 <div layout:fragment="content">
     <div class="container">
         <form class="form" method="post" th:action="@{/add-todo}" th:object="${todo}">
-            id : <input th:field="*{id}" type="text"/>
             description : <input th:field="*{description}" type="text"/>
             <span class="text-warning"
                   th:if="${#fields.hasErrors('description')}"
                   th:errors="*{description}"></span>
             targetDate : <input th:field="*{targetDate}" type="date"/>
+            <input th:field="*{id}" th:type="hidden"/>
+            <input th:field="*{userName}" th:type="hidden"/>
+            <input th:field="*{done}" th:type="hidden"/>
             <input class="btn-success" type="submit">
         </form>
     </div>

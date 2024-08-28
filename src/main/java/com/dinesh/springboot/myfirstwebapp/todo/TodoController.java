@@ -23,10 +23,6 @@ public class TodoController {
 
     @GetMapping("/list-todo")
     public String listAllTodos(Model model) {
-//        System.out.println(model);
-//        model.addAttribute("name", user.getUserName());
-//        System.out.println(model);
-//        System.out.println(user.getUserName());
         String UserName = getUserName(model);
         System.out.println("User Name is " + UserName);
         model.addAttribute("alltodos", todoService.findByUsername(UserName));
@@ -43,7 +39,7 @@ public class TodoController {
         System.out.println("i am hre" + themodel);
         String UserName = getUserName(themodel);
         Todo todo = new Todo();
-        System.out.println("User Name" + UserName);
+        System.out.println("User Name: " + UserName);
         todo.setDescription("This is a new todo");
         todo.setUserName(UserName);
         themodel.addAttribute("todo", todo);
@@ -51,7 +47,7 @@ public class TodoController {
     }
 
     @PostMapping("/add-todo")
-    public String addNewTodo(@Valid Todo todo1, BindingResult result, @SessionAttribute("user") User user) {
+    public String addNewTodo(@Valid Todo todo1, BindingResult result) {
         if(result.hasErrors()){
             return "/todo";
         }
@@ -62,9 +58,6 @@ public class TodoController {
 
     @GetMapping("/deleteto")
     public String deleteTodo(@RequestParam int id) {
-//        System.out.println("i am in deleteTodo mapping");
-//        System.out.println(id);
-//        System.out.println("i am in deleteTodo mapping");
         todoService.delete(id);
         return "redirect:list-todo";
     }
