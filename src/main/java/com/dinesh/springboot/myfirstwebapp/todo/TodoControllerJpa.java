@@ -1,23 +1,26 @@
 package com.dinesh.springboot.myfirstwebapp.todo;
 
-import com.dinesh.springboot.myfirstwebapp.login.User;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @SessionAttributes("user")
-//@Controller
-public class TodoController {
+@Controller
+public class TodoControllerJpa {
 
     private TodoService todoService;
+    private TodoRepository todoRepository;
 
-    public TodoController(TodoService todoService) {
+    public TodoControllerJpa(TodoService todoService, TodoRepository todoRepository) {
         this.todoService = todoService;
+        this.todoRepository = todoRepository;
     }
 
 
@@ -25,7 +28,7 @@ public class TodoController {
     public String listAllTodos(Model model) {
         String UserName = getUserName(model);
         System.out.println("User Name is " + UserName);
-        model.addAttribute("alltodos", todoService.findByUsername(UserName));
+        model.addAttribute("alltodos", todoRepository.findByuserName(UserName));
         return "listtodo";
     }
 
@@ -52,19 +55,21 @@ public class TodoController {
             return "/todo";
         }
         System.out.println(todo1);
-        todoService.addTodo(todo1);
+//        todoService.addTodo(todo1);
+        todoRepository.save(todo1);
         return "redirect:list-todo";
     }
 
     @GetMapping("/deleteto")
     public String deleteTodo(@RequestParam int id) {
-        todoService.delete(id);
+//        todoService.delete(id);
+        todoRepository.deleteById(id);
         return "redirect:list-todo";
     }
 
     @GetMapping("/updatetodo")
     public String showToDoPage(@RequestParam int id, Model model) {
-        Todo todo = todoService.findById(id);
+        Todo todo = todoRepository.findById(id).get();
         System.out.println(todo);
         model.addAttribute("todo", todo);
         return "/updatetodopage";
