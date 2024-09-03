@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/common/layout}">
+<head>
+    <title>Add to do page</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <form class="form" method="post" th:action="@{/add-todo}" th:object="${todo}">
+            description : <input th:field="*{description}" type="text"/>
+            <span class="text-warning"
+                  th:if="${#fields.hasErrors('description')}"
+                  th:errors="*{description}"></span>
+            targetDate : <input th:field="*{targetDate}" type="date"/>
+            <input th:field="*{id}" th:type="hidden"/>
+            <input th:field="*{userName}" th:type="hidden"/>
+            <input th:field="*{done}" th:type="hidden"/>
+            <input class="btn-success" type="submit">
+        </form>
+    </div>
+</div>
+<div th:replace="~{/updatetodopage :: datepickerscript}"></div>
+</body>
+</html>
