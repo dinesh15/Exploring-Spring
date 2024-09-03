@@ -12,16 +12,16 @@ import java.time.LocalDate;
 
 @Entity
 public class Todo {
-    public Todo() {
-    }
+        public Todo() {
+        }
 
-    public Todo( int id, String userName,  String description, LocalDate targetDate, boolean done) {
-        this.userName = userName;
-        this.id = id;
-        this.description = description;
-        this.targetDate = targetDate;
-        this.done = done;
-    }
+        public Todo( int id, String userName,  String description, LocalDate targetDate, boolean done) {
+            this.userName = userName;
+            this.id = id;
+            this.description = description;
+            this.targetDate = targetDate;
+            this.done = done;
+        }
 
     private String userName;
 
