@@ -34,6 +34,11 @@ public class RestSocialMediaController {
         return user;
     }
 
+    @DeleteMapping("/users/{id}")
+    public void deleteUser(@PathVariable int id) {
+        userDaoService.deleteUserById(id);
+    }
+
     @PostMapping("/users")
     public ResponseEntity<Object> createUser(@RequestBody User user) {
         User addedUser = userDaoService.add(user);
