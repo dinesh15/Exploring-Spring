@@ -3,6 +3,7 @@ package com.dinesh.rest.webservies.SocialMedia;
 import com.dinesh.rest.webservies.user.User;
 import com.dinesh.rest.webservies.user.UserDaoService;
 import com.dinesh.rest.webservies.user.UserNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -40,7 +41,7 @@ public class RestSocialMediaController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<Object> createUser(@RequestBody User user) {
+    public ResponseEntity<Object> createUser(@Valid @RequestBody User user) {
         User addedUser = userDaoService.add(user);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(addedUser.getId()).toUri();
         return ResponseEntity.created(location).build();
