@@ -4,12 +4,17 @@ import com.dinesh.rest.webservies.user.User;
 import com.dinesh.rest.webservies.user.UserDaoService;
 import com.dinesh.rest.webservies.user.UserNotFoundException;
 import jakarta.validation.Valid;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class RestSocialMediaController {
@@ -26,13 +31,18 @@ public class RestSocialMediaController {
     }
 
     @GetMapping("/users/{id}")
-    public User getUser(@PathVariable int id) {
+    public EntityModel<User> getUser(@PathVariable int id) {
 
         User user = userDaoService.getUser(id);
         if (user == null) {
             throw new UserNotFoundException("id:" + id);
         }
-        return user;
+
+        EntityModel<User> model = EntityModel.of(user);
+        WebMvcLinkBuilder link =  linkTo(methodOn(this.getClass()).getAllUsers());
+        model.add(link.withRel("all-users"));
+
+        return model;
     }
 
     @DeleteMapping("/users/{id}")
