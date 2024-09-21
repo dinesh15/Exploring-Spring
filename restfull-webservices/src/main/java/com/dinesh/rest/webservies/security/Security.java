@@ -19,7 +19,7 @@ public class Security {
         http.authorizeHttpRequests(
                 auth -> auth.anyRequest().authenticated()
         );
-        // instead of the default page show the pop up if a request is not authenticated
+        // instead of the default page show the pop up if a request is not authenticated update
         http.httpBasic(withDefaults());
         // disable csrf
         http.csrf().disable();
