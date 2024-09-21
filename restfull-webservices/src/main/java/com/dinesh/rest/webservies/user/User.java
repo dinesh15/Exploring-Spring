@@ -1,12 +1,13 @@
 package com.dinesh.rest.webservies.user;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.dinesh.rest.webservies.post.Post;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity(name = "user_details")
 public class User {
@@ -18,6 +19,11 @@ public class User {
     private String name;
     @Past
     private LocalDate dob;
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts;
 
     public User() {
     }
@@ -50,6 +56,13 @@ public class User {
 
     public void setDob(LocalDate dob) {
         this.dob = dob;
+    }
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 
     @Override
