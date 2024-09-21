@@ -50,7 +50,7 @@ public class SocialMediaRestController {
     public EntityModel<User> getUser(@PathVariable Integer id) {
 
         Optional<User> user =userRepository.findById(id);
-        System.out.println(user);
+//        System.out.println(user);
         if (user.isEmpty()) {
             throw new UserNotFoundException("id:" + id);
         }
@@ -82,7 +82,7 @@ public class SocialMediaRestController {
     public ResponseEntity<Object> createPost(@PathVariable int id, @Valid @RequestBody Post post) {
         Optional<User> user =userRepository.findById(id);
 
-        System.out.println(post.getDescription());
+//        System.out.println(post.getDescription());
 
         if (user.isEmpty()) {
             throw new UserNotFoundException("id:" + id);
